@@ -36,8 +36,8 @@ def dibujo(counter):
 
 
 
-                                                                               ||
-                                                                               ||
+                                       ||
+                                       ||
             ''')
     elif counter == 2:
         print('''
@@ -47,53 +47,53 @@ def dibujo(counter):
 
 
 
-                                                              /  |   | \       ||
-                                                                 |   |         ||
-                                                                 /   \         ||
-                                                                               ||
-                                                                               ||
+                      /  |   | \       ||
+                         |   |         ||
+                         /   \         ||
+                                       ||
+                                       ||
             ''')
     elif counter == 3:
         print('''
 
 
 
-                                                                |_ o _|  /     ||
-                                                                  | |---/      ||
-                                                                /|   |\        ||
-                                                              /  |   | \       ||
-                                                                 |   |         ||
-                                                                 /   \         ||
-                                                                               ||
-                                                                               ||
+                        |_ o _|  /     ||
+                          | |---/      ||
+                        /|   |\        ||
+                       / |   | \       ||
+                         |   |         ||
+                         /   \         ||
+                                       ||
+                                       ||
         ''')
     elif counter == 4:
         print('''
 
 
-                                                                | o o |  |     ||
-                                                                |_ Q _|  /     ||
-                                                                  | |---/      ||
-                                                                /|   |\        ||
-                                                              /  |   | \       ||
-                                                                 |   |         ||
-                                                                 /   \         ||
-                                                                               ||
-                                                                               ||
+                        | o o |  |     ||
+                        |_ Q _|  /     ||
+                          | |---/      ||
+                        /|   |\        ||
+                       / |   | \       ||
+                         |   |         ||
+                         /   \         ||
+                                       ||
+                                       ||
         ''')
     elif counter == 5:
         print('''
-                                                             ____________________
-                                                                _______  |     ||
-                                                                | * * |  |     ||
-                                                                |_ Q _|  /     ||
-                                                                  | |---/      ||
-                                                                /|   |\        ||
-                                                              /  |   | \       ||
-                                                                 |   |         ||
-                                                                 /   \         ||
-                                                                               ||
-                                                                               ||
+                     ____________________
+                        _______  |     ||
+   Y O U    L O S T !!! | * * |  |     ||
+                        |_ Q _|  /     ||
+                          | |---/      ||
+                        /|   |\        ||
+                       / |   | \       ||
+                         |   |         ||
+                         /   \         ||
+                                       ||
+                                       ||
         ''')
     elif counter == 0:
         print('''
@@ -111,29 +111,30 @@ def dibujo(counter):
           ''')
     elif counter == -1:
         print('''
-                                                             ____________________
-                                                                         |     ||
-                                           Y  O  U    W  I   N  !!!      |     ||
-                                                    _______              |     ||
-                                                    | o o |              |     ||
-                                                    |'---'|            (   )   ||
-                                                      | |               """    ||
-                                                  \ /|   |\ /                  ||
-                                                     |   |                     ||
-                                                     |   |                     ||
-                                                     /   \                     ||
+                     ____________________
+                                 |     ||
+   Y  O  U    W  I   N  !!!      |     ||
+            _______              |     ||
+            | o o |              |     ||
+            |'---'|            (   )   ||
+              | |               """    ||
+          \ /|   |\ /                  ||
+             |   |                     ||
+             |   |                     ||
+             /   \                     ||
         ''')      
 
 
 
 def limpiar(palabra,size, counter):
     os.system("clear")    
-    dibujo(counter)
     palabra="".join(palabra)   
-    print("Adivina la Palabra")    
-    print("------------------",end="\n")
+    print("                    ".center(80,"="),end="\n")
+    print(" ADIVINA LA PALABRA ".center(80,"="))    
+    print("                    ".center(80,"="),end="\n")
+    dibujo(counter)
     print("                  ",end="\n")
-    if palabra  == " ":        
+    if palabra.count == -1:        
         print("_" * size)
     else:                
         print(palabra)
@@ -153,7 +154,6 @@ def main():
     counter = 0
     sumar = False
     print(word)
-    #try:        
     acert = []
     acert3 = []    
     ingresada = '' 
@@ -161,6 +161,10 @@ def main():
     limpiar("_ " * sizeword,sizeword,0)    
     while counter <= LIMIT:                          
         print("Tienes " + str(LIMIT-counter) + ", oportunidades",end="\n")  
+        #print("Ingresadas: " + ingresada.upper())                                               
+        print("")
+        print("----------------------------------------------------")
+        print("")
         option = input("Ingrese una Letra: ").upper()
         if len(option) > 1:
             if len(acert4) >= 1: 
@@ -209,14 +213,26 @@ def main():
                                     perdido(word)
                                     exit()                                                               
                                 else:                                     
+                                    if len(acert4) == 0: 
+                                        limpiar("_ " * sizeword,sizeword,counter)
+                                    else:
+                                        limpiar(acert4,sizeword,counter)  
                                     print(f'Letra no encontrada, te quedan {LIMIT-counter} intentos',end="\n")
                                     break                                
                             else:
-                                counter += 1  
-                                limpiar(acert4,sizeword,counter)   
-                                print(f'Letra no encontrada, te quedan {LIMIT-counter} intentos',end="\n")
-                                sumar == False                        
-                                break   
+                                counter += 1
+                                if counter >= LIMIT:
+                                    print(f'Letra no encontrada, ya no tiene mas intentos...',end="\n")                                   
+                                    perdido(word)
+                                    exit()                                                               
+                                else:     
+                                    if len(acert4) == 0: 
+                                        limpiar("_ " * sizeword,sizeword,counter)
+                                    else:
+                                        limpiar(acert4,sizeword,counter)  
+                                    print(f'Letra no encontrada, te quedan {LIMIT-counter} intentos',end="\n")
+                                    sumar == False                        
+                                    break   
                         else:         
                             acert3 = []        
                             for i in word:                
@@ -228,7 +244,7 @@ def main():
                                     if i != j:
                                         acert3 == acert3.append('_')
                                         break   
-                    acert4 = " ".join(acert3)                       
+                    acert4 = " ".join(acert3)                
                     limpiar(acert4,sizeword,counter)       
                     if acert4 == " ".join(word):                      
                         limpiar(acert4,sizeword,-1)  
@@ -238,13 +254,6 @@ def main():
                         limpiar(acert4,sizeword,5)  
                         perdido(word)                            
                         exit()
-                                                      
-                print("Ingresadas: " + ingresada.upper())                                               
-
-
-    # except TypeError:
-    #     print("Debe insertar una letra, no se permiten numeros ni caracteres")
-
 
 if __name__ == "__main__":
     main() 
