@@ -141,11 +141,30 @@ def limpiar(palabra,size, counter):
     print("                  ",end="\n")
 
 
-def perdido(word):
-    print(f'Has Perdido... La palabra era: {word}',end="\n")            
+def perdido(word,ganado=False):
+    if ganado == True:
+        print(" " * 80,end="\n")
+        print(f'Has Ganado... La palabra era: {word} Felicidades',end="\n")       
+        print(" " * 80,end="\n")
+    else:
+        print(" " * 80,end="\n")
+        print(f'Has Perdido... La palabra era: {word}',end="\n")   
+        print(" " * 80,end="\n")
+    
+    print(" " * 80,end="\n")
+    mensaje = input("Desea seguir jugando? Escriba S/N: ").upper()
+    print(" " * 80,end="\n")
+
+    if mensaje == "S":
+        ahorcado()            
+    else:
+        print(" " * 80,end="\n")
+        print(f'Gracias por jugar, hasta luego',end="\n") 
+        print(" " * 80,end="\n")
+        exit()         
 
 
-def main():
+def ahorcado():
     word=[]
     letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     word = read()  
@@ -153,6 +172,7 @@ def main():
     LIMIT = 5
     counter = 0
     sumar = False
+    pista = False
     print(word)
     acert = []
     acert3 = []    
@@ -160,12 +180,12 @@ def main():
     acert4 = ''      
     limpiar("_ " * sizeword,sizeword,0)    
     while counter <= LIMIT:                          
-        print("Tienes " + str(LIMIT-counter) + ", oportunidades",end="\n")  
-        #print("Ingresadas: " + ingresada.upper())                                               
+        print("Tienes " + str(LIMIT-counter) + ", oportunidades",end="\n")                      
         print("")
         print("----------------------------------------------------")
         print("")
-        option = input("Ingrese una Letra: ").upper()
+        print("Letras Ingresadas: " + ingresada.upper())     
+        option = input("Ingrese una Letra: ").upper()       
         if len(option) > 1:
             if len(acert4) >= 1: 
                 limpiar(acert4,sizeword,counter)  
@@ -194,8 +214,7 @@ def main():
                         if counter >= LIMIT:                                            
                             limpiar(acert4,sizeword,5)  
                             print(f'La letra {option} ya fue ingresada, pierde su ultimo turno',end="\n")   
-                            perdido(word)                                
-                            exit()                
+                            perdido(word)                                                                           
                         else:
                             limpiar(acert4,sizeword,counter)                   
                             print(f'La letra {option} ya fue ingresada, pierde un turno, te quedan {LIMIT-counter} intentos',end="\n")                                                                                       
@@ -232,7 +251,7 @@ def main():
                                         limpiar(acert4,sizeword,counter)  
                                     print(f'Letra no encontrada, te quedan {LIMIT-counter} intentos',end="\n")
                                     sumar == False                        
-                                    break   
+                                    break  
                         else:         
                             acert3 = []        
                             for i in word:                
@@ -244,16 +263,27 @@ def main():
                                     if i != j:
                                         acert3 == acert3.append('_')
                                         break   
-                    acert4 = " ".join(acert3)                
-                    limpiar(acert4,sizeword,counter)       
+                    acert4 = " ".join(acert3)                     
+                    limpiar(acert4,sizeword,counter)   
+                    # if counter == 3:
+                    #     pista == True
+                    #     if pista == True:
+                    
+
                     if acert4 == " ".join(word):                      
                         limpiar(acert4,sizeword,-1)  
-                        print(f'Has Ganado... La palabra era: {word} Felicidades',end="\n")                       
-                        exit()                     
+                        perdido(word,True) 
                     if counter >= LIMIT:
                         limpiar(acert4,sizeword,5)  
                         perdido(word)                            
-                        exit()
+                       
+
+
+def main():  
+    ahorcado()   
+
+
+
 
 if __name__ == "__main__":
     main() 
