@@ -184,7 +184,22 @@ def ahorcado():
         print("")
         print("----------------------------------------------------")
         print("")
-        print("Letras Ingresadas: " + ingresada.upper())     
+        if counter == 2 and pista == False:
+                mensaje = input("""Observo que no le va muy bien, 
+desea que le coloque las letras ingresadas como PISTA? S/N: """).upper()
+                if mensaje == "S":
+                    pista == True
+                    print(" " * 80,end="\n")
+                    print("Letras Ingresadas: " + ingresada.upper())   
+                    print(" " * 80,end="\n")  
+                elif mensaje == "N":
+                    pista == False
+                else:
+                    pista == False                
+        else:
+            print(" " * 80,end="\n")
+            print("Letras Ingresadas: " + ingresada.upper())     
+            print(" " * 80,end="\n")
         option = input("Ingrese una Letra: ").upper()       
         if len(option) > 1:
             if len(acert4) >= 1: 
@@ -265,10 +280,6 @@ def ahorcado():
                                         break   
                     acert4 = " ".join(acert3)                     
                     limpiar(acert4,sizeword,counter)   
-                    # if counter == 3:
-                    #     pista == True
-                    #     if pista == True:
-                    
 
                     if acert4 == " ".join(word):                      
                         limpiar(acert4,sizeword,-1)  
