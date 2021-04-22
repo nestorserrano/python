@@ -173,6 +173,7 @@ def ahorcado():
     counter = 0
     sumar = False
     pista = False
+    mensaje = ''
     print(word)
     acert = []
     acert3 = []    
@@ -184,22 +185,24 @@ def ahorcado():
         print("")
         print("----------------------------------------------------")
         print("")
-        if counter == 2 and pista == False:
-                mensaje = input("""Observo que no le va muy bien, 
+        if counter >= 2 and pista == False and mensaje == '':
+            mensaje = input("""Observo que no le va muy bien, 
 desea que le coloque las letras ingresadas como PISTA? S/N: """).upper()
-                if mensaje == "S":
-                    pista == True
-                    print(" " * 80,end="\n")
-                    print("Letras Ingresadas: " + ingresada.upper())   
-                    print(" " * 80,end="\n")  
-                elif mensaje == "N":
-                    pista == False
-                else:
-                    pista == False                
-        else:
+            if mensaje == "S":
+                pista == True
+                print(" " * 80,end="\n")
+                print("Letras Ingresadas: " + ingresada.upper())   
+                print(" " * 80,end="\n")  
+            elif mensaje == "N":
+                pista == False
+            else:
+                pista == False                
+        elif pista == True or mensaje == "S":
             print(" " * 80,end="\n")
             print("Letras Ingresadas: " + ingresada.upper())     
             print(" " * 80,end="\n")
+        else:
+            pista == False
         option = input("Ingrese una Letra: ").upper()       
         if len(option) > 1:
             if len(acert4) >= 1: 
